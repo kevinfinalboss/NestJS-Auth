@@ -6,7 +6,7 @@ Sistema de autenticação JWT feito com o framework [Nest](https://github.com/ne
 
 - Para executar o projeto na sua máquina será necessário:
 - [NodeJS](https://nodejs.org/en/) instalado na versão 12.0 ou superior.
-- [Visual Studio Code](https://code.visualstudio.com) instalado e iniciado.}
+- [Visual Studio Code](https://code.visualstudio.com) instalado e iniciado.
 
 ## Prisma
 
