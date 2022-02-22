@@ -79,7 +79,7 @@ $ npx prisma studio
 
 ## Rotas
 
-As rotas do serviço são documentadas com o padrão de Swagger (ainda sendo finalizada!)
+As rotas do serviço são documentadas com o padrão de Swagger (ainda sendo finalizada!!)
 
 ```bash
 $ http://localhost:3000/api
