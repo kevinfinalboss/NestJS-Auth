@@ -7,7 +7,10 @@ import { JwtService } from '@nestjs/jwt';
 import { userToken } from './models/userToken';
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
   login(user: User): userToken {
     const payLoad: UserPayLoad = {
       sub: user.id,
@@ -18,7 +21,7 @@ export class AuthService {
 
     return {
       acess_token: jwtToken,
-    }
+    };
   }
 
   async validateUser(email: string, password: string) {
