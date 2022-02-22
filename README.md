@@ -1,39 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Descrição do projeto
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Sistema de autenticação JWT feito com o framework [Nest](https://github.com/nestjs/nest).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Preparação de ambiente
 
-## Description
+- Para executar o projeto na sua máquina será necessário:
+- [NodeJS](https://nodejs.org/en/) instalado na versão 12.0 ou superior.
+- [Visual Studio Code](https://code.visualstudio.com) instalado e iniciado.}
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prisma
 
-## Installation
+### Instalar o prisma
 
 ```bash
-$ npm install
+npm install -D prisma
 ```
 
-## Running the app
+### Inicializar o prisma
 
+```bash
+npx prisma init
+```
+
+### Dependências
+
+- [@nestjs/passport]
+- [@nestjs/jwt]
+- [bcrypt]
+- [class-validator]
+- [class-transformer]
+- [passport]
+- [passport-jwt]
+- [passport-local]
+
+### Instalando as dependências
+
+Para instalar todas as dependências de uma vez utilize o seguinte comando
+
+```bash
+$ npm i @nestjs/passport @nestjs/jwt bcrypt class-validator class-transformer passport passport-jwt passport-local
+```
+
+### Dependências Desenvolvimento
+
+- [@types/passport-jwt]
+- [@types/passport-local]
+- [@types/bcrypt]
+
+## Instalando as dependências de desenvolvimento
+
+Para instalar todas as dependências de desenvolvimento de uma vez utilize o seguinte comando
+
+```bash
+$ npm i -D @types/passport-jwt @types/passport-local @types/bcrypt
+```
+
+## Execução da aplicação
+
+##### Local:
 ```bash
 # development
 $ npm run start
@@ -45,29 +69,75 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Execução do Prisma Studio
+
+Para uma observação melhor dos dados adicionados recomendo usar a interface do prisma studio, você pode rodar ela utilizando o seguinte comando
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npx prisma studio
 ```
 
-## Support
+## Rotas
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+As rotas do serviço são documentadas com o padrão de Swagger (ainda sendo finalizada!)
 
-## Stay in touch
+```bash
+$ http://localhost:3000/api
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Requisições
 
-## License
+### Criação de usuário
 
-Nest is [MIT licensed](LICENSE).
+> **❗ MUITO IMPORTANTE ❗**
+>
+> Para criar um usuário, certifique-se de liberar o endpoint antes com o `decorator` `@IsPublic()`.
+>
+> Caso a criação de usuários da sua aplicação seja restrita, remova o `decorator` `IsPublic()`, pois as próximas criações deverão ser autenticadas por um usuário já existente.
+
+**Endpoint:** `/user`
+
+**Method:** `POST`
+
+**Request Body:**
+
+```json
+{
+    "email": "kevinmg50@gmail.com",
+    "password": "Kevinmg50@",
+    "name": "Kevin Gomes"
+}
+```
+
+**Response Body (Status 201):**
+
+```json
+{
+    "id": 1,
+    "email": "kevinmg50@gmail.com",
+    "name": "Kevin Gomes"
+}
+```
+
+### Realizando o login
+
+**Endpoint:** `/login`
+
+**Method:** `POST`
+
+**Request Body:**
+
+```json
+{
+    "email": "kevinmg50@gmail.com",
+    "password": "Kevinmg50@"
+}
+```
+
+**Response Body (Status 200):**
+
+```json
+{
+    "access_token": "JWT token gerado"
+}
+```
